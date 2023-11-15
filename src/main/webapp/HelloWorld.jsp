@@ -9,12 +9,12 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Hi Beer World</title>
+		
 	</head>
 	
 	<body>
-
 		Hello World1 <!-- the usual HTML way -->
-		<% out.println("Hello World2"); %> <!-- output the same thing, but using 
+		 <!-- output the same thing, but using 
 	                                      jsp programming -->
 							  
 		<br>

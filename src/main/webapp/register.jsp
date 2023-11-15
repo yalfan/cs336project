@@ -15,13 +15,19 @@
 	
 	<body>
 		<div class="form-container py-5 text-center">
-			<h1>Login</h1>
-			<form method="post" action="loginAccount.jsp">
+			<h1>Register for a new account</h1>
+			<form method="post" action="registerAccount.jsp">
 			  <div class="mb-3">
 		  		  <input class="form-control mx-auto w-auto" type="text" placeholder="Username" name="username"/>
 			  </div>
 			  <div class="mb-3">
 		  		  <input class="form-control mx-auto w-auto" type="password" placeholder="Password" name="password"/>
+			  </div>
+			  <div class="mb-3">
+		  		  <input class="form-control mx-auto w-auto" type="text" placeholder="First Name" name="firstName"/>
+			  </div>
+			  <div class="mb-3">
+		  		  <input class="form-control mx-auto w-auto" type="text" placeholder="Last Name" name="lastName"/>
 			  </div>
 			  <button class="btn btn-primary" type="submit">Log In</button>
 			</form>
