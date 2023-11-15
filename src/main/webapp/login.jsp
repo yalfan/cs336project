@@ -22,6 +22,15 @@
 			  </div>
 			  <div class="mb-3">
 		  		  <input class="form-control mx-auto w-auto" type="password" placeholder="Password" name="password"/>
+				  <% 
+		  		  	String error = (String)session.getAttribute("error");
+		  		  	if (error != null) {
+		  				%>
+		  				<div class="invalid-feedback" style="display: block;"><%= error %></div>
+		  				<%
+		  				session.setAttribute("error", null);
+		  		  	}
+		  		  %>
 			  </div>
 			  <button class="btn btn-primary" type="submit">Log In</button>
 			</form>

@@ -17,8 +17,17 @@
 		<div class="form-container py-5 text-center">
 			<h1>Register for a new account</h1>
 			<form method="post" action="registerAccount.jsp">
-			  <div class="mb-3">
+			  <div class="mb-3 input-group has-validation">
 		  		  <input class="form-control mx-auto w-auto" type="text" placeholder="Username" name="username"/>
+		  		  <% 
+		  		  	String error = (String)session.getAttribute("error");
+		  		  	if (error != null) {
+		  				%>
+		  				<div class="invalid-feedback" style="display: block;"><%= error %></div>
+		  				<%
+		  				session.setAttribute("error", null);
+		  		  	}
+		  		  %>
 			  </div>
 			  <div class="mb-3">
 		  		  <input class="form-control mx-auto w-auto" type="password" placeholder="Password" name="password"/>
@@ -29,7 +38,7 @@
 			  <div class="mb-3">
 		  		  <input class="form-control mx-auto w-auto" type="text" placeholder="Last Name" name="lastName"/>
 			  </div>
-			  <button class="btn btn-primary" type="submit">Log In</button>
+			  <button class="btn btn-primary" type="submit">Register</button>
 			</form>
 		</div>							  	
 	</body>

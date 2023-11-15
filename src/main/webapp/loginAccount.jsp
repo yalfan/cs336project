@@ -11,20 +11,21 @@
 </head>
 <body>
 	<%
-	String userid = request.getParameter("username");
+	String username = request.getParameter("username");
 	String pwd = request.getParameter("password");
 	ApplicationDB db = new ApplicationDB();	
-	Connection con = db.getConnection();	Statement st = con.createStatement();
+	Connection con = db.getConnection();	
+	Statement st = con.createStatement();
 	ResultSet rs;
-	rs = st.executeQuery("select * from users where username='" + userid + "' and password='" + pwd
+	rs = st.executeQuery("select * from account where username='" + username + "' and password='" + pwd
 	+ "'");
 	if (rs.next()) {
-		session.setAttribute("user", userid); // the username will be stored in the session
-		out.println("welcome " + userid);
+		session.setAttribute("user", username); // the username will be stored in the session
+		out.println("welcome " + username);
 		out.println("<a href='logout.jsp'>Log out</a>");
 		response.sendRedirect("index.jsp");
 	} else {
-		out.println("Invalid password <a href='login.jsp'>try again</a>");
+		session.setAttribute("error", "Invalid username or password! If you don't have an account, you can register <a href='register.jsp'>here</a>");
 		response.sendRedirect("login.jsp");
 	}
 	%>

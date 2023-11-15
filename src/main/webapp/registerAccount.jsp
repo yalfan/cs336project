@@ -25,6 +25,19 @@
 		String password = request.getParameter("password");
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
+		
+		//Create a SQL statement
+
+		//Get the selected radio button from the index.jsp
+		//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
+		String getUsernames = "SELECT * FROM account WHERE username='" + username + "'";
+		Statement usernameStmt = con.prepareStatement(getUsernames);
+		//Run the query against the database.
+		ResultSet result = stmt.executeQuery(getUsernames);
+		if (result.next()) {
+			session.setAttribute("error", "Username already exists!");
+			response.sendRedirect("register.jsp");
+		}
 
 
 		//Make an insert statement for the Sells table:
@@ -43,11 +56,13 @@
 		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
 		con.close();
 		out.print("insert succeeded");
-		response.sendRedirect("index.jsp");
+		// response.sendRedirect("index.jsp");
 		
 	} catch (Exception ex) {
 		out.print(ex);
 		out.print("insert failed");
+		session.setAttribute("error", "An error occured!");
+		response.sendRedirect("register.jsp");
 	}
 %>
 </body>
