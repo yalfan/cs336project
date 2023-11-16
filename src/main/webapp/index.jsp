@@ -8,11 +8,17 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Hello World</title>
+		<title>CS336 Project</title>
 	</head>
 	
 	<body>
+		<% 
+			if (session.getAttribute("user") == null) {
+				response.sendRedirect("login.jsp");
+			}
+		%>
 		<h1>Welcome <%= session.getAttribute("user") %></h1>
+		<a href='logout.jsp'>Log out</a>
 
 
 	</body>
