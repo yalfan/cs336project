@@ -30,6 +30,11 @@
 		  				<%
 		  				session.setAttribute("error", null);
 		  		  	}
+		  		  	else {
+		  		  		%>
+		  				<div class="valid-feedback" style="display: block; color: black;"> If you don't have an account, you can register <a href='register.jsp'>here</a></div>
+		  				<%
+		  		  	}
 		  		  %>
 			  </div>
 			  <button class="btn btn-primary" type="submit">Log In</button>

@@ -20,27 +20,22 @@
 		//Create a SQL statement
 		Statement stmt = con.createStatement();
 
-		//Get parameters from the HTML form at the index.jsp
+		//Get parameters from the HTML form at register.jsp
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
 		
-		//Create a SQL statement
-
-		//Get the selected radio button from the index.jsp
-		//Make a SELECT query from the table specified by the 'command' parameter at the index.jsp
 		String getUsernames = "SELECT * FROM account WHERE username='" + username + "'";
 		Statement usernameStmt = con.prepareStatement(getUsernames);
-		//Run the query against the database.
+
 		ResultSet result = stmt.executeQuery(getUsernames);
 		if (result.next()) {
 			session.setAttribute("error", "Username already exists!");
 			response.sendRedirect("register.jsp");
 		}
 
-
-		//Make an insert statement for the Sells table:
+		//Make an insert statement for the account table:
 		String insert = "INSERT INTO account(username, password, first_name, last_name)"
 				+ "VALUES (?, ?, ?, ?)";
 		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
@@ -55,8 +50,8 @@
 		
 		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
 		con.close();
-		out.print("insert succeeded");
-		// response.sendRedirect("index.jsp");
+		session.setAttribute("user", username);
+		response.sendRedirect("index.jsp");
 		
 	} catch (Exception ex) {
 		out.print(ex);
@@ -64,6 +59,6 @@
 		session.setAttribute("error", "An error occured!");
 		response.sendRedirect("register.jsp");
 	}
-%>
-</body>
+	%>
+	</body>
 </html>

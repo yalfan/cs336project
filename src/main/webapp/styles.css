@@ -5,3 +5,37 @@
 	padding-left: 15px;
 	padding-right: 15px;
 }
+
+.container {
+	padding-top: 20px;
+}
+
+.jumbotron {
+	padding: 30px 15px;
+	margin-bottom: 30px;
+	color: inherit;
+	background-color: #eee;
+	text-align: center;
+	border-bottom: 1px solid #e5e5e5;
+}
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    width: 730px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}

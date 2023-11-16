@@ -23,9 +23,11 @@
 		session.setAttribute("user", username); // the username will be stored in the session
 		out.println("welcome " + username);
 		out.println("<a href='logout.jsp'>Log out</a>");
+		con.close();
 		response.sendRedirect("index.jsp");
 	} else {
 		session.setAttribute("error", "Invalid username or password! If you don't have an account, you can register <a href='register.jsp'>here</a>");
+		con.close();
 		response.sendRedirect("login.jsp");
 	}
 	%>
