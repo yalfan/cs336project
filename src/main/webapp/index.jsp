@@ -22,6 +22,17 @@
 		<div class="container">
 			<div class="jumbotron">
 				<h1>Welcome, <%= session.getAttribute("user") %>!</h1>
+				<br><br>
+				<a> Account Type: <%= session.getAttribute("account_type") %> </a> 
+				<br><br>
+				
+				<% if (session.getAttribute("account_type").equals("customer")) { %>
+					<a href='search.jsp'>Search flights</a> 
+					<br> <br>
+				<% } else { %>
+					<!-- add stuff for other account types here -->
+				<% } %>
+				
 				<a href='logout.jsp'>Log out</a>
 			</div>
 		</div>
