@@ -15,7 +15,7 @@
 	
 	<body>
 		<% 
-			if (session.getAttribute("user") == null) {
+			if (session.getAttribute("user") == null || session.getAttribute("account_type") == null) {
 				response.sendRedirect("login.jsp");
 			}
 		%>
@@ -26,10 +26,19 @@
 				<a> Account Type: <%= session.getAttribute("account_type") %> </a> 
 				<br><br>
 				
-				<% if (session.getAttribute("account_type").equals("customer")) { %>
+				<% if (session.getAttribute("account_type") != null && session.getAttribute("account_type").equals("customer")) { %>
 					<a href='search.jsp'>Search flights</a> 
 					<br> <br>
-				<% } else { %>
+				<% } else if (session.getAttribute("account_type") != null && session.getAttribute("account_type").equals("customer_rep")){ %>
+					<div class="row justify-content-center">
+						<a href=''>Make Reservations</a>
+					</div>
+					<div class="row justify-content-center">
+						<a href=''>Edit Information</a>
+					</div>
+					<div class="row justify-content-center">
+						<a href='flightSearch.jsp'>View Flights</a>
+					</div>
 					<!-- add stuff for other account types here -->
 				<% } %>
 				

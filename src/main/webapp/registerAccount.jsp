@@ -51,6 +51,7 @@
 		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
 		con.close();
 		session.setAttribute("user", username);
+		session.setAttribute("account_type", "customer");
 		response.sendRedirect("index.jsp");
 		
 	} catch (Exception ex) {
