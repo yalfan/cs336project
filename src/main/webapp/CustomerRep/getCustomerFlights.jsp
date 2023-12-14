@@ -11,14 +11,14 @@
 </head>
 <body>
 	<%
-	String airport = request.getParameter("airportSelect");
-	if (airport != null) {
-		session.setAttribute("airport", airport);
-		response.sendRedirect("flights.jsp");
+	String customer = request.getParameter("customerID");
+	if (customer != null) {
+		session.setAttribute("customerID", customer);
+		response.sendRedirect("editReservation.jsp");
 	}
 	else {
-		session.setAttribute("airport", null);
-		response.sendRedirect("flights.jsp");
+		session.setAttribute("customerID", null);
+		response.sendRedirect("editReservation.jsp");
 	}
 	%>
 	

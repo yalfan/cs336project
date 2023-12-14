@@ -28,8 +28,7 @@
 	String flightID = request.getParameter("flight");
 	String ticketClass = request.getParameter("classSelect");
 	int customerID = Integer.parseInt(request.getParameter("customerID"));
-	double totalFare = 0, bookingFee = 0;
-	int changeFee = 25;
+	double totalFare = 0, bookingFee = 0, changeFee = 25;
 	int seatNumber;
     LocalDate currentDate = LocalDate.now();
     LocalTime currentTime = LocalTime.now();
@@ -46,18 +45,19 @@
 			rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), 
 			rs.getString(9), rs.getDouble(10), rs.getDouble(11), rs.getDouble(12));
 	
-	switch (ticketClass) {
-		case "economy":
-			totalFare = flight.getPriceEconomy();
-			bookingFee = flight.getPriceEconomy() * 0.05;
-		case "business":
-			totalFare = flight.getPriceBusiness();
-			bookingFee = flight.getPriceBusiness() * 0.05;
-			changeFee = 0;
-		case "first":
-			totalFare = flight.getPriceFirst();
-			bookingFee = flight.getPriceFirst() * 0.05;
-			changeFee = 0;
+	if (ticketClass.equals("economy")) {
+		totalFare = flight.getPriceEconomy();
+		bookingFee = flight.getPriceEconomy() * 0.05;
+	}
+	else if (ticketClass.equals("business")) {
+		totalFare = flight.getPriceBusiness();
+		bookingFee = flight.getPriceBusiness() * 0.05;
+		changeFee = 0;
+	}
+	else if (ticketClass.equals("first")) {
+		totalFare = flight.getPriceFirst();
+		bookingFee = flight.getPriceFirst() * 0.05;
+		changeFee = 0;
 	}
 	Random random = new Random();
 	rs = stmt.executeQuery("SELECT Num_Seats FROM aircraft WHERE Aircraft_ID = '" + flight.getAircraftID() + "'");	
@@ -78,14 +78,41 @@
     
     String formattedFlightDate = nextOccurrence.format(dateFormat);
     
-    String sqlStatement = String.format("INSERT INTO flight_ticket (Total_Fare, Seat_Number, Flight_date, Purchase_date, Purchase_time, Booking_fee, ID_Number, class, change_fee) VALUES (%.2f, %d, '%s', '%s', '%s', %.2f, %d, '%s', %d);",
-    		totalFare, seatNumber, formattedFlightDate, formattedCurrentDate, formattedCurrentTime, bookingFee, customerID, ticketClass, changeFee);
+    // String sqlStatement = String.format("INSERT INTO flight_ticket (Total_Fare, Seat_Number, Flight_date, Purchase_date, Purchase_time, Booking_fee, ID_Number, class, change_fee) VALUES (%.2f, %d, '%s', '%s', '%s', %.2f, %d, '%s', %d);",
+    // 		totalFare, seatNumber, formattedFlightDate, formattedCurrentDate, formattedCurrentTime, bookingFee, customerID, ticketClass, changeFee);
 
-    out.println(sqlStatement);
-    stmt.executeUpdate(sqlStatement);
-    
-	response.sendRedirect("customerReservation.jsp");
+    // String linkingStatement = String.format("INSERT INTO ticket_flights ");
+    // out.println(sqlStatement);
+    // stmt.executeUpdate(sqlStatement);
 	
+    String insertFlightTicketSql = "INSERT INTO flight_ticket (Total_Fare, Seat_Number, Flight_date, Purchase_date, Purchase_time, Booking_fee, ID_Number, class, change_fee) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    PreparedStatement pstmt = con.prepareStatement(insertFlightTicketSql, Statement.RETURN_GENERATED_KEYS);
+
+	// Set the parameters for the flight_ticket insertion
+	pstmt.setDouble(1, totalFare);
+	pstmt.setInt(2, seatNumber);
+	pstmt.setString(3, formattedFlightDate);
+	pstmt.setString(4, formattedCurrentDate);
+	pstmt.setString(5, formattedCurrentTime);
+	pstmt.setDouble(6, bookingFee);
+	pstmt.setInt(7, customerID);
+	pstmt.setString(8, ticketClass);
+	pstmt.setDouble(9, changeFee);
+	
+	// Execute the insertion
+	int affectedRows = pstmt.executeUpdate();
+	
+	// Retrieve the generated keys (auto-generated Ticket_Number)
+	ResultSet generatedKeys = pstmt.getGeneratedKeys();
+	
+	if (generatedKeys.next()) {
+	    int ticketNumber = generatedKeys.getInt(1); // Retrieve the generated Ticket_Number
+	    // Use ticketNumber for further processing or insertion into ticket_flights table
+	    String linkingStatement = String.format("INSERT INTO ticket_flights (Ticket_Number, Flight_Number, Company_ID) VALUES (%d, '%s', '%s')", ticketNumber, flight.getFlightNumber(), flight.getCompanyID());
+	    stmt.executeUpdate(linkingStatement);
+	} 
+	
+	response.sendRedirect("customerReservation.jsp");
 	
 	%>
 	
