@@ -8,7 +8,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<link rel="stylesheet" type="text/css" href="styles.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<title>CS336 Project</title>
 	</head>
@@ -16,7 +16,7 @@
 	<body>
 		<% 
 			if (session.getAttribute("user") == null) {
-				response.sendRedirect("login.jsp");
+				response.sendRedirect("../login.jsp");
 			}
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();
@@ -27,14 +27,25 @@
 		<div class="container">
 			<div class="jumbotron">
 				<div class = "row justify-content-center">
-					<h1>Flights</h1>
+					<h1>Create/Edit/Delete Information</h1>
 				</div>
-				<form action="createReservation.jsp">
+				
+				<form style="border: 1px solid; padding: 10px;" action="handleCreateFlight.jsp" class="justify-content-center">
+					<h2>Flights</h2>
 					<div class="form-group">
-						<select name="classSelect">
-							<option value="economy">Economy</option>
-							<option value="business">Business</option>
-							<option value="first">first</option>
+						<label for="flightNumber">Flight Number: </label>
+						<input type="number" required name="flightNumber" id="flightNumber" />
+					</div>
+					<div class="form-group">
+						<label for="airline">Airline: </label>
+						<select id="airline" name="airlineSelect">
+							<% 
+								
+								ResultSet companies = stmt.executeQuery("SELECT Company_ID FROM airline");
+								while (companies.next()) {
+									out.println("<option value=\"" + companies.getString(1) + "\">" + companies.getString(1) + "</option>");
+								}
+							%>
 						</select>
 					</div>
 					<div class="form-group">
@@ -60,14 +71,117 @@
 						</select>
 					</div>
 					<div class="form-group">
-						
+						<label for="aircraftSelect">Aircraft: </label>
+						<select id="aircraftSelect" name="aircraftSelect">
+							<% 
+								
+								ResultSet aircrafts = stmt.executeQuery("SELECT Aircraft_ID FROM aircraft");
+								while (aircrafts.next()) {
+									out.println("<option value=\"" + aircrafts.getString(1) + "\">" + aircrafts.getString(1) + "</option>");
+								}
+							%>
+						</select>
 					</div>
-					<input type="submit" value="Submit" />
+					
+					<div class="form-group">
+						<label for="departureTime">Departure Time: </label>
+						<input type="time" id="departureTime" name="departureTime"/>
+						<label for="arrivalTime">Arrival Time: </label>
+						<input type="time" id="arrivalTime" name="arrivalTime"/>
+					</div>
+					<div class="form-group">
+						<label for="weekday">Weekday: </label>
+						<select id="weekday" name="weekdaySelect">
+							<option value="Mon">Monday</option>
+							<option value="Tue">Tuesday</option>
+							<option value="Wed">Wednesday</option>
+							<option value="Thu">Thursday</option>
+							<option value="Fri">Friday</option>
+							<option value="Sat">Saturday</option>
+							<option value="Sun">Sunday</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="flightType">Flight Type: </label>
+						<select id="flightType" name="flightTypeSelect">
+							<option value="Domestic">Domestic</option>
+							<option value="International">International</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="economy">Economy Class Price ($)</label>
+						<input required type="number" id="economy" name="economy" min="0"/>
+					</div>
+					<div class="form-group">
+						<label for="business">Business Class Price ($)</label>
+						<input required type="number" id="business" name="business" min="0"/>
+					</div>
+					<div class="form-group">
+						<label for="first">First Class Price ($)</label>
+						<input required type="number" id="first" name="first" min="0"/>
+					</div>
+					<div class="mb-3">
+						<% 
+				  		  	String error = (String)session.getAttribute("error");
+				  		  	if (error != null) {
+				  				%>
+				  				<div class="invalid-feedback" style="display: block;"><%= error %></div>
+				  				<%
+				  				session.setAttribute("error", null);
+				  		  	}
+						%>
+					</div>
+					<input class="btn-success" type="submit" name="create" value="Create"/>
+					<input class="btn-primary" type="submit" name="edit" value="Edit"/>
+					<input class="btn-danger" type="submit" name="cancel" value="Cancel"/>
+				</form>
 				
+				<form style="border: 1px solid; padding: 10px;" action="handleCreateAircraft.jsp" class="justify-content-center">
+					<h2>Aircrafts</h2>
+					<div class="form-group">
+						<label for="aircraftID">Aircraft ID: </label>
+						<input type="text" required name="aircraftID" id="aircraftID" />
+					</div>
+					<div class="form-group">
+						<label for="airline2">Airline: </label>
+						<select id="airline2" name="airlineSelect2">
+							<% 
+								
+								ResultSet companies2 = stmt.executeQuery("SELECT Company_ID FROM airline");
+								while (companies2.next()) {
+									out.println("<option value=\"" + companies2.getString(1) + "\">" + companies2.getString(1) + "</option>");
+								}
+							%>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="numSeats">Number of Seats: </label>
+						<input type="number" required name="numSeats" id="numSeats" />
+					</div>
+					<input class="btn-success" type="submit" name="create" value="Create"/>
+					<input class="btn-primary" type="submit" name="edit" value="Edit"/>
+					<input class="btn-danger" type="submit" name="cancel" value="Cancel"/>
+				</form>
+				
+				
+				
+				<form style="border: 1px solid; padding: 10px;" action="handleCreateAirport.jsp" class="justify-content-center">
+					<h2>Airlines</h2>
+					<div class="form-group">
+						<label for="airlineID2">Airline ID: </label>
+						<input type="text" required name="airlineID2" id="airlineID2" maxlength="3" minlength="3"/>
+					</div>
+					<div class="form-group">
+						<label for="airlineName">Airline Name: </label>
+						<input type="text" required name="airlineName" id="airlineName" />
+					</div>
+					<input class="btn-success" type="submit" name="create" value="Create"/>
+					<input class="btn-primary" type="submit" name="edit" value="Edit"/>
+					<input class="btn-danger" type="submit" name="cancel" value="Cancel"/>
 				</form>
 				
 				<div class="row justify-content-center">
-					<a href='index.jsp'>Return</a>
+					<a href='../index.jsp'>Return</a>
 				</div>
 			</div>
 		</div>

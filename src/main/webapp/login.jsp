@@ -14,6 +14,11 @@
 	</head>
 	
 	<body>
+	<%
+		if (session.getAttribute("user") != null) {
+			response.sendRedirect("index.jsp");
+		}
+	%>
 		<div class="form-container py-5 text-center">
 			<h1>Login</h1>
 			<form method="post" action="loginAccount.jsp">

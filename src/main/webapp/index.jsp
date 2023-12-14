@@ -34,6 +34,9 @@
 						<a href='CustomerRep/customerReservation.jsp'>Make Reservations</a>
 					</div>
 					<div class="row justify-content-center">
+						<a href='CustomerRep/createFlight.jsp'>Create/Edit/Delete Flights</a>
+					</div>
+					<div class="row justify-content-center">
 						<a href='CustomerRep/editReservation.jsp'>Edit Information</a>
 					</div>
 					<div class="row justify-content-center">

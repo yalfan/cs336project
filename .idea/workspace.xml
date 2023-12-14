@@ -8,10 +8,13 @@
   <component name="ChangeListManager">
     <list default="true" id="4a3078df-9357-45ec-ac02-4874168eebca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/CustomerRep/createReservation.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/CustomerRep/createReservation.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/CustomerRep/flightSearch.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/CustomerRep/flightSearch.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/CustomerRep/flights.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/CustomerRep/flights.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/com/cs336/pkg/ApplicationDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/com/cs336/pkg/ApplicationDB.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs336/pkg/ApplicationDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cs336/pkg/ApplicationDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/CustomerRep/createFlight.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/CustomerRep/createFlight.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/CustomerRep/editReservation.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/CustomerRep/editReservation.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/CustomerRep/handleEditReservation.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/CustomerRep/handleEditReservation.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/register.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/register.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

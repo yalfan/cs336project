@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*,java.time.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 
 
@@ -30,7 +30,7 @@
 		<div class="container">
 			<div class="jumbotron">
 				<div class = "row justify-content-center">
-					<h1>Flights</h1>
+					<h1>Edit Reservation</h1>
 				</div>
 				<form action="getCustomerFlights.jsp" class="justify-content-center">
 					<div class="form-group">
@@ -87,7 +87,7 @@
 					<form action="handleEditReservation.jsp">
 						<div class="form-group">
 							<label for="ticketNum">Ticket Number</label>
-							<select id="ticketNum" name="ticketNum">
+							<select required id="ticketNum" name="ticketNum">
 								<% 
 									for (int num: ticketNums) {
 										out.println("<option value=\"" + num + "\">" + num + "</option>");
@@ -97,16 +97,31 @@
 						</div>
 						<div class="form-group">
 							<label for="seatNum">Seat Number</label>
-							<input type="number" id="seatNum" name="seatNum" min="1" max="200" />
+							<input required type="number" id="seatNum" name="seatNum" min="1" max="200" value="1" />
+						</div>
+						<div class="form-group">
+							<label for="flightDate">Seat Number</label>
+							<input required type="date" id="flightDate" name="flightDate" min="<%= LocalDate.now().toString() %>" value="<%= LocalDate.now().toString() %>"/>
 						</div>
 						
 						<div class="form-group">
 							<label for="class">Class: </label>
-							<select id="class" name="classSelect">
+							<select required id="class" name="classSelect">
 								<option value="economy">Economy</option>
 								<option value="business">Business</option>
 								<option value="first">first</option>
 							</select>
+						</div>
+						<div class="mb-3">
+							<% 
+					  		  	String error = (String)session.getAttribute("error");
+					  		  	if (error != null) {
+					  				%>
+					  				<div class="invalid-feedback" style="display: block;"><%= error %></div>
+					  				<%
+					  				session.setAttribute("error", null);
+					  		  	}
+							%>
 						</div>
 						<input class="btn-primary" type="submit" name="edit" value="Edit"/>
 						<input class="btn-danger" type="submit" name="cancel" value="Cancel"/>
