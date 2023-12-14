@@ -16,7 +16,7 @@
 	<body>
 		<% 
 			if (session.getAttribute("user") == null) {
-				response.sendRedirect("login.jsp");
+				response.sendRedirect("../login.jsp");
 			}
 		%>
 		<div class="container">
@@ -24,7 +24,7 @@
 				<div class = "row justify-content-center">
 					<h1>Flights</h1>
 				</div>
-				<form action="flightSearch.jsp">
+				<form action="flightSearch.jsp" class="row justify-content-center">
 					<select name="airportSelect">
 						<% 
 							ApplicationDB db = new ApplicationDB();	
@@ -69,7 +69,7 @@
 				%>
 				
 				<div class="row justify-content-center">
-					<a href='index.jsp'>Return</a>
+					<a href='../index.jsp'>Return</a>
 				</div>
 			</div>
 		</div>

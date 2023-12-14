@@ -31,13 +31,13 @@
 					<br> <br>
 				<% } else if (session.getAttribute("account_type") != null && session.getAttribute("account_type").equals("customer_rep")){ %>
 					<div class="row justify-content-center">
-						<a href=''>Make Reservations</a>
+						<a href='CustomerRep/customerReservation.jsp'>Make Reservations</a>
 					</div>
 					<div class="row justify-content-center">
 						<a href=''>Edit Information</a>
 					</div>
 					<div class="row justify-content-center">
-						<a href='flightSearch.jsp'>View Flights</a>
+						<a href='CustomerRep/flightSearch.jsp'>View Flights</a>
 					</div>
 					<!-- add stuff for other account types here -->
 				<% } %>

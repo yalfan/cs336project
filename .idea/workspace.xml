@@ -7,15 +7,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4a3078df-9357-45ec-ac02-4874168eebca" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/cs336project.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/com/cs336/pkg/ApplicationDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/com/cs336/pkg/ApplicationDB.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/com/cs336/pkg/Flight.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/com/cs336/pkg/Flight.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cs336/pkg/ApplicationDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cs336/pkg/ApplicationDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cs336/pkg/Flight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cs336/pkg/Flight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/flightSearch.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/flights.jsp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/registerAccount.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/registerAccount.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +31,9 @@
     <option name="FILTER_INFO" value="true" />
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2YDxLtYPX9ro0mTsTat8l4mso5e" />
   <component name="ProjectViewState">
@@ -151,6 +154,7 @@
       <workItem from="1700073905614" duration="5000" />
       <workItem from="1702440620337" duration="399000" />
       <workItem from="1702498563643" duration="10000" />
+      <workItem from="1702507235999" duration="1235000" />
     </task>
     <servers />
   </component>
