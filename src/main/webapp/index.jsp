@@ -46,8 +46,10 @@
 						<a href='CustomerRep/flightSearch.jsp'>View Flights</a>
 					</div>
 					<!-- add stuff for other account types here -->
-				<% } %>
-				
+				<% } else if (session.getAttribute("account_type") != null && session.getAttribute("account_type").equals("admin")){ %>
+						<a href='admin/adminHomePage.jsp'>Admin Options</a>
+						<br></br>
+					<% } %>
 				<a href='logout.jsp'>Log out</a>
 			</div>
 		</div>
