@@ -43,7 +43,7 @@
 				</select> <input type="submit" value="Submit" />
 			</form>
 			<div class="row justify-content-center">
-			<table>
+			<table id="flights">
 				<tr>
 					<th>Flight#</th>
 					<th>Airline</th>
