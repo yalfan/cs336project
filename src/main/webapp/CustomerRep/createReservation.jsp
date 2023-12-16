@@ -99,8 +99,7 @@
 	pstmt.setString(8, ticketClass);
 	pstmt.setDouble(9, changeFee);
 	
-	// Execute the insertion
-	int affectedRows = pstmt.executeUpdate();
+	pstmt.executeUpdate();
 	
 	// Retrieve the generated keys (auto-generated Ticket_Number)
 	ResultSet generatedKeys = pstmt.getGeneratedKeys();

@@ -48,10 +48,15 @@
 		ps.setString(4, lastName);
 		ps.executeUpdate();
 		
+		ResultSet generatedKeys = ps.getGeneratedKeys();
+		generatedKeys.next();
+		
+		session.setAttribute("user", username);
+		session.setAttribute("user_id", generatedKeys.getInt("ID_Number"));
+		session.setAttribute("account_type", "customer");
+		
 		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
 		con.close();
-		session.setAttribute("user", username);
-		session.setAttribute("account_type", "customer");
 		response.sendRedirect("index.jsp");
 		
 	} catch (Exception ex) {

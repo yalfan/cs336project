@@ -29,6 +29,8 @@
 				<% if (session.getAttribute("account_type") != null && session.getAttribute("account_type").equals("customer")) { %>
 					<a href='search.jsp'>Search flights</a> 
 					<br> <br>
+					<a href='question.jsp'>Ask question</a>
+					<br> <br>
 				<% } else if (session.getAttribute("account_type") != null && session.getAttribute("account_type").equals("customer_rep")){ %>
 					<div class="row justify-content-center">
 						<a href='CustomerRep/customerReservation.jsp'>Make Reservations</a>
@@ -44,6 +46,9 @@
 					</div>
 					<div class="row justify-content-center">
 						<a href='CustomerRep/flightSearch.jsp'>View Flights</a>
+					</div>
+					<div class="row justify-content-center">
+						<a href='question.jsp'>Answer Questions</a>
 					</div>
 					<!-- add stuff for other account types here -->
 				<% } %>
