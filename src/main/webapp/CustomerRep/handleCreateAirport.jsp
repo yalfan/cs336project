@@ -24,34 +24,39 @@
 	Connection con = db.getConnection();
 	Statement stmt = con.createStatement();
 	
-	if (request.getParameter("airportIDSelect") == null) {
-		session.setAttribute("error", "Missing information!");
-    	response.sendRedirect("createFlight.jsp");
-    	return;
-	}
-	
-	String airportID = request.getParameter("airportIDSelect");
-	if (request.getParameter("cancel") != null) {
-		stmt.executeUpdate("DELETE FROM airport WHERE Airport_ID = " + airportID);
-		response.sendRedirect("createFlight.jsp");
-		return;
-	}
-	String airportName = request.getParameter("airportNameSelect");
-	
-	if (request.getParameter("edit") != null) {
-		String sqlStatement = String.format("UPDATE airport SET Airport_Name = '%s' WHERE Airport_ID = '%s'",
-				airportName, airportID);
-		stmt.executeUpdate(sqlStatement);
-		response.sendRedirect("createFlight.jsp");
-		return;
-	}
-	
-    String insertStatement = String.format("INSERT INTO airport (Airport_ID, Airport_Name) VALUES ('%s', '%s')",
-    		airportID, airportName);
-    stmt.executeUpdate(insertStatement);
-	response.sendRedirect("createFlight.jsp");
-	return;
+	try {
 
+		if (request.getParameter("airportIDSelect") == null) {
+			session.setAttribute("error", "Missing information!");
+	    	response.sendRedirect("createFlight.jsp");
+	    	return;
+		}
+		
+		String airportID = request.getParameter("airportIDSelect");
+		if (request.getParameter("cancel") != null) {
+			stmt.executeUpdate("DELETE FROM airport WHERE Airport_ID = '" + airportID + "'");
+			response.sendRedirect("createFlight.jsp");
+			return;
+		}
+		String airportName = request.getParameter("airportNameSelect");
+		
+		if (request.getParameter("edit") != null) {
+			String sqlStatement = String.format("UPDATE airport SET Airport_Name = '%s' WHERE Airport_ID = '%s'",
+					airportName, airportID);
+			stmt.executeUpdate(sqlStatement);
+			response.sendRedirect("createFlight.jsp");
+			return;
+		}
+		
+	    String insertStatement = String.format("INSERT INTO airport (Airport_ID, Airport_Name) VALUES ('%s', '%s')",
+	    		airportID, airportName);
+	    stmt.executeUpdate(insertStatement);
+		response.sendRedirect("createFlight.jsp");
+	}
+	catch (Exception e) {
+		response.sendRedirect("createFlight.jsp");
+	}
+	
 	%>
 	
 

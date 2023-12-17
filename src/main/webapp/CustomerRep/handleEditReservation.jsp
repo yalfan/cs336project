@@ -78,8 +78,8 @@
     	return;
     }
 	
-	String sqlStatement = String.format("UPDATE flight_ticket SET Seat_Number = %d, class = '%s', change_fee = %f, Total_Fare = %f, Booking_Fee = %f WHERE Ticket_Number = %d",
-			seatNum, ticketClass, changeFee, totalFare, bookingFee, ticketNum);
+	String sqlStatement = String.format("UPDATE flight_ticket SET Seat_Number = %d, Flight_Date='%s', class = '%s', change_fee = %f, Total_Fare = %f, Booking_Fee = %f WHERE Ticket_Number = %d",
+			seatNum, date1.toString(), ticketClass, changeFee, totalFare, bookingFee, ticketNum);
 	stmt.executeUpdate(sqlStatement);
 	response.sendRedirect("editReservation.jsp");
 
