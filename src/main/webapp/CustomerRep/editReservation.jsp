@@ -17,9 +17,11 @@
 		<% 
 			if (session.getAttribute("user") == null) {
 				response.sendRedirect("../login.jsp");
+				return;
 			}
 			if (session.getAttribute("account_type") != null && !session.getAttribute("account_type").equals("customer_rep")) {
 				response.sendRedirect("../login.jsp");
+				return;
 			}
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();

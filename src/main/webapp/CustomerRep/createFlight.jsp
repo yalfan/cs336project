@@ -17,6 +17,7 @@
 		<% 
 			if (session.getAttribute("user") == null) {
 				response.sendRedirect("../login.jsp");
+				return;
 			}
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();
