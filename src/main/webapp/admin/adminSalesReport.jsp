@@ -54,16 +54,17 @@
 						String month = request.getParameter("month");
 						String year = request.getParameter("year");
 						if (month != null && year != null) {
-							String query = "SELECT MONTH(ft.Purchase_date) AS Month, YEAR(ft.Purchase_date) AS Year, COUNT(ft.Ticket_Number) AS Total_Tickets, SUM(ft.Total_Fare) AS Total_Sales FROM flight_ticket ft WHERE MONTH(ft.Purchase_date) = 1 AND YEAR(ft.Purchase_date) = 2023 GROUP BY MONTH(ft.Purchase_date), YEAR(ft.Purchase_date)";
+							String query = "SELECT MONTH(ft.Purchase_date) AS Month, YEAR(ft.Purchase_date) AS Year, COUNT(ft.Ticket_Number) AS Total_Tickets, SUM(ft.Total_Fare) AS Total_Sales FROM flight_ticket ft WHERE MONTH(ft.Purchase_date) = " + month + " AND YEAR(ft.Purchase_date) = "+ year +" GROUP BY MONTH(ft.Purchase_date), YEAR(ft.Purchase_date)";
 							rs = stmt.executeQuery(query);
 							while (rs.next()) {
 								out.println("<tr>");
 								out.println("<td>" + rs.getString("Month") + "</td>");
-								out.println("<td>" + rs.getDate("Year") + "</td>");
+								out.println("<td>" + rs.getString("Year").split("-")[0] + "</td>");
 								out.println("<td>" + rs.getString("Total_Tickets") + "</td>");
 								out.println("<td>" + rs.getString("Total_Sales") + "</td>");
 								out.println("</tr>");
 							}
+//							out.println(query);
 						}
 					%>
 				</table>
