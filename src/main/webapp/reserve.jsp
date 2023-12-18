@@ -58,8 +58,57 @@
            stmt.executeUpdate(insertWaitlistQuery);
             out.println("Added to waitlist.");
        }
+	
+	if(request.getParameter("flightNumber_dep") != null && (request.getParameter("companyID_dep") != null)) {
+		companyID = request.getParameter("companyID_dep");
+        flightNumber = Integer.parseInt(request.getParameter("flightNumber_dep"));
+        ticketClass = request.getParameter("ticketClass_dep");
+        fare = 20.00;
+        priceQuery = "SELECT Price_Economy, Price_Business, Price_First FROM flight WHERE Flight_Number = "+ flightNumber + " AND Company_ID = '" + companyID + "'";
+        rs = stmt.executeQuery(priceQuery);
+        if (rs.next()) {
+            if ("Business".equals(ticketClass)) {
+                fare = rs.getDouble("Price_Business");
+            } else if ("First".equals(ticketClass)) {
+                fare = rs.getDouble("Price_First");
+            } else {
+                fare = rs.getDouble("Price_Economy");
+            }
+        }
 
+        id_query = "SELECT ID_Number FROM Account WHERE username = '" + session.getAttribute("user") + "'";
+        rs = stmt.executeQuery(id_query);
+        IDNumber = -1;
+        if (rs.next()) {
+            IDNumber = rs.getInt("ID_Number");
+        }
 
+        purchaseDate = java.sql.Date.valueOf("2023-12-17");
+        purchaseTime = java.sql.Time.valueOf("15:30:00");
+        flightDate = java.sql.Date.valueOf("2023-12-19");
+        seatNumber = 1;
+
+            insertTicketQuery = "INSERT INTO flight_ticket (Total_Fare, Seat_Number, Flight_date, Purchase_date, Purchase_time, Booking_fee, ID_Number, class, change_fee) VALUES (" + fare + "," + seatNumber + ", '" + flightDate + "', '" + purchaseDate + "', '" + purchaseTime + "', 0, " + IDNumber + ", '" + "Economy" + "', 0)";
+            stmt.executeUpdate(insertTicketQuery);
+            ticketNumberQuery = "SELECT Ticket_Number FROM flight_ticket WHERE ID_Number = " + IDNumber + " AND Purchase_date = '" + purchaseDate + "' AND Purchase_time = '" + purchaseTime + "'";
+            rs = stmt.executeQuery(ticketNumberQuery);
+
+            while (rs.next()) {
+                ticketNumber = rs.getInt("Ticket_Number");
+            }
+
+            if (ticketNumber != -1) {
+                String insertTicketFlightsQuery = "INSERT INTO ticket_flights (Ticket_Number, Flight_Number, Company_ID) VALUES (" + ticketNumber + ", " + flightNumber + ", '" + companyID + "')";
+                stmt.executeUpdate(insertTicketFlightsQuery);
+
+                out.println("Reservation complete.");
+        } else {
+            String insertWaitlistQuery = "INSERT INTO waitlist (ID_Number, Flight_Number, Company_ID) VALUES (" + IDNumber + ", " + flightNumber + ", '" + companyID + "')";
+           stmt.executeUpdate(insertWaitlistQuery);
+            out.println("Added to waitlist.");
+       }
+		
+	}
 
 %>
 
