@@ -214,9 +214,20 @@
 		} else {%>
 			<td><%=rs.getInt("Price_Economy") %></td>
 		<% } %>
-		</tr> <% 
+		<td>
+		<!-- Reservation Button -->
+            <form action="reserve.jsp" >
+                <input type="hidden" name="flightNumber" value="<%= rs.getInt("Flight_Number") %>" />
+                <input type="hidden" name="companyID" value="<%= rs.getString("Company_ID") %>" />
+                <input type="submit" value="Reserve" />
+            </form>
+        </td>
+		</tr>
+	<% 
 	} 
-	con.close(); %>
+	st.close();
+	con.close();
+	%>
 
 	</table>
 	
