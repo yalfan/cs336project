@@ -52,11 +52,11 @@
                 String insertTicketFlightsQuery = "INSERT INTO ticket_flights (Ticket_Number, Flight_Number, Company_ID) VALUES (" + ticketNumber + ", " + flightNumber + ", '" + companyID + "')";
                 stmt.executeUpdate(insertTicketFlightsQuery);
 
-                out.println("Reservation complete.");
+                out.println("Reservation for returning flight complete. ");
         } else {
             String insertWaitlistQuery = "INSERT INTO waitlist (ID_Number, Flight_Number, Company_ID) VALUES (" + IDNumber + ", " + flightNumber + ", '" + companyID + "')";
            stmt.executeUpdate(insertWaitlistQuery);
-            out.println("Added to waitlist.");
+            out.println("Added to waitlist for returning flight. ");
        }
 	
 	if(request.getParameter("flightNumber_dep") != null && (request.getParameter("companyID_dep") != null)) {
@@ -101,11 +101,11 @@
                 String insertTicketFlightsQuery = "INSERT INTO ticket_flights (Ticket_Number, Flight_Number, Company_ID) VALUES (" + ticketNumber + ", " + flightNumber + ", '" + companyID + "')";
                 stmt.executeUpdate(insertTicketFlightsQuery);
 
-                out.println("Reservation complete.");
+                out.println("Reservation for departing flight complete.");
         } else {
             String insertWaitlistQuery = "INSERT INTO waitlist (ID_Number, Flight_Number, Company_ID) VALUES (" + IDNumber + ", " + flightNumber + ", '" + companyID + "')";
            stmt.executeUpdate(insertWaitlistQuery);
-            out.println("Added to waitlist.");
+            out.println("Added to waitlist for departing flight.");
        }
 		
 	}
@@ -116,9 +116,22 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Reservation Complete</title>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Reservation Complete!</title>
 </head>
 <body>
+	<div class="container">
+		<div class="jumbotron">
+			<div class = "row justify-content-center">
+				<h1>Reservation Complete!</h1>
+			</div>
+			
+			<div class="row justify-content-center">
+				<a href='index.jsp'>Return</a>
+			</div>
+		</div>
+	</div>
     <!-- Output success or failure message here -->
 </body>
 </html>
