@@ -33,13 +33,14 @@
 		if (result.next()) {
 			session.setAttribute("error", "Username already exists!");
 			response.sendRedirect("register.jsp");
+			return;
 		}
 
 		//Make an insert statement for the account table:
 		String insert = "INSERT INTO account(username, password, first_name, last_name)"
 				+ "VALUES (?, ?, ?, ?)";
 		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
-		PreparedStatement ps = con.prepareStatement(insert);
+		PreparedStatement ps = con.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
 
 		//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
 		ps.setString(1, username);
@@ -49,20 +50,19 @@
 		ps.executeUpdate();
 		
 		ResultSet generatedKeys = ps.getGeneratedKeys();
-		generatedKeys.next();
+	
+		if (generatedKeys.next()) {  
+			session.setAttribute("user_id", generatedKeys.getInt(1));
+		} 
 		
 		session.setAttribute("user", username);
-		session.setAttribute("user_id", generatedKeys.getInt("ID_Number"));
 		session.setAttribute("account_type", "customer");
 		
 		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
 		con.close();
 		response.sendRedirect("index.jsp");
-		
 	} catch (Exception ex) {
-		out.print(ex);
-		out.print("insert failed");
-		session.setAttribute("error", "An error occured!");
+		session.setAttribute("error", "An error occured!" + ex.toString());
 		response.sendRedirect("register.jsp");
 	}
 	%>
