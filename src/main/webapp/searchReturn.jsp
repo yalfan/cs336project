@@ -16,18 +16,62 @@
 	if (session.getAttribute("user") == null) {
 		response.sendRedirect("login.jsp");
 	}
+	
+	ApplicationDB db0 = new ApplicationDB();	
+	Connection con0 = db0.getConnection();	
+	Statement st0 = con0.createStatement();
+	ResultSet rs0;
+	
+	rs0 = st0.executeQuery("select * from flight where Flight_Number = '" + request.getParameter("flightNumber") + "' and Company_ID = '" + request.getParameter("companyID") + "'");
+	rs0.next();
 	%>
 	
 	<div class="container">
 			<div class="jumbotron">
 				<div class = "row justify-content-center">
-					<h1>Find Flights</h1>
+					<h1>Find Returning Flights</h1>
+
+				</div>
+				
+				<div class = "row justify-content-center" style="border: 0px solid; padding: 10px;">
+					<h5>Your selected departing flight:</h5>
+				</div>
+				
+				<div class = "row justify-content-center" style="border: 0px solid; padding: 10px;">
+					<table border="1" id=flights>
+					<tr>
+					<td><b>Airline</b></td>
+					<td><b>Flight#</b></td>
+					<td><b>Weekday</b></td>
+					<td><b>Departure</b></td>
+					<td><b>Arrival</b></td>
+					<td><b>Type</b></td>
+					<td><b>From</b></td>
+					<td><b>To</b></td>
+					<td><b>On</b></td>
+					</tr>
+					
+					<tr>
+					<td><%=rs0.getInt("Flight_Number") %></td>
+					<td><%=rs0.getString("Company_ID") %></td>
+					<td><%=rs0.getString("weekday") %></td>
+					<td><%=rs0.getTime("departure_time") %></td>
+					<td><%=rs0.getTime("arrival_time") %></td>
+					<td><%=rs0.getString("Flight_type") %></td>
+					<td><%=rs0.getString("From_Airport_ID") %></td>
+					<td><%=rs0.getString("To_Airport_ID") %></td>
+					<td><%=rs0.getString("Aircraft_ID") %></td>
+					</tr>
+					
+					</table>
 				</div>
 				
 				
+				
 				<form style="border: 1px solid; padding: 10px;" action = "search.jsp" method = "GET" class="justify-content-center">
+				
 					<h2>Filters</h2>
-					From airport <input type = "text" name = "from"> to airport <input type = "text" name = "to">  <br/>  <br/> 
+					From airport <input type = "text" name = "from" value=<%=rs0.getString("To_Airport_ID")%> readonly="readonly"> to airport <input type = "text" name = "to" value=<%=rs0.getString("From_Airport_ID")%> readonly="readonly">  <br/>  <br/> 
 				
 					Price below <input type = "number" name = "price_below"> and above <input type = "number" name = "price_above"> ($) for class: <select name="class">
 						<option value="Economy">Economy</option>
@@ -105,14 +149,15 @@
 					ResultSet rs;
 					String query = "select * from flight where 1=1";
 					
+					if(!request.getParameter("from").equals("")) {
+						query = query + " and From_Airport_ID = '" + request.getParameter("from") + "'";
+					}
+					
+					if(!request.getParameter("to").equals("")) {
+						query = query + " and To_Airport_ID = '" + request.getParameter("to") + "'";
+					}
+					
 					if (request.getParameter("class") != null) {
-						if(!request.getParameter("from").equals("")) {
-							query = query + " and From_Airport_ID = '" + request.getParameter("from") + "'";
-						}
-						
-						if(!request.getParameter("to").equals("")) {
-							query = query + " and To_Airport_ID = '" + request.getParameter("to") + "'";
-						}
 						
 						if(!request.getParameter("price_below").equals("")) {
 							if(request.getParameter("class").equals("Business")) {
@@ -233,22 +278,17 @@
 						<td>
 						<!-- Reservation Button -->
 							<form action="reserve.jsp" >
+								<input type="hidden" name="flightNumber_dep" value="<%= rs0.getInt("Flight_Number") %>" />
+								<input type="hidden" name="companyID_dep" value="<%= rs0.getString("Company_ID") %>" />
 								<input type="hidden" name="flightNumber" value="<%= rs.getInt("Flight_Number") %>" />
 								<input type="hidden" name="companyID" value="<%= rs.getString("Company_ID") %>" />
-								<input type="submit" value="Reserve One-Way" />
-							</form>
-						</td>
-						<td>
-							<form action="searchReturn.jsp" >
-								<input type="hidden" name="flightNumber" value="<%= rs.getInt("Flight_Number") %>" />
-								<input type="hidden" name="companyID" value="<%= rs.getString("Company_ID") %>" />
-								<input type="hidden" name="to" value="<%= rs.getString("From_Airport_ID") %>" />
-								<input type="hidden" name="from" value="<%= rs.getString("To_Airport_ID") %>" />
-								<input type="submit" value="Select and Search for Return Flights" />
+								<input type="submit" value="Select Return Flight" />
 							</form>
 						</td>
 						</tr> <% 
 					} 
+					st0.close();
+					con0.close();
 					st.close();
 					con.close(); %>
 				
@@ -258,8 +298,13 @@
 				<br>
 				
 				<div class="row justify-content-center">
-					<a href='index.jsp'>Return</a>
+					<a href='search.jsp'>Return to Search</a>
 				</div>
+				
+				<div class="row justify-content-center">
+					<a href='index.jsp'>Cancel and Return Home</a>
+				</div>
+				
 			</div>
 		</div>
 </body>

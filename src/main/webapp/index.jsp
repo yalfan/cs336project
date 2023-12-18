@@ -25,7 +25,6 @@
 				<br><br>
 				<a> Account Type: <%= session.getAttribute("account_type") %> </a> 
 				<br><br>
-				
 				<% if (session.getAttribute("account_type") != null && session.getAttribute("account_type").equals("customer")) { %>
 					<a href='search.jsp'>Search flights</a> 
 					<br> <br>
