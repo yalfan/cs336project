@@ -30,6 +30,8 @@
 					<br> <br>
 					<a href='question.jsp'>Ask question</a>
 					<br> <br>
+					<a href='viewYourFlights.jsp'>View your flights</a>
+					<br> <br>
 				<% } else if (session.getAttribute("account_type") != null && session.getAttribute("account_type").equals("customer_rep")){ %>
 					<div class="row justify-content-center">
 						<a href='CustomerRep/customerReservation.jsp'>Make Reservations</a>
