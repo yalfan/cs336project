@@ -17,9 +17,11 @@
 		<% 
 			if (session.getAttribute("user") == null) {
 				response.sendRedirect("../login.jsp");
+				return;
 			}
 			if (session.getAttribute("account_type") != null && !session.getAttribute("account_type").equals("customer_rep")) {
 				response.sendRedirect("../login.jsp");
+				return;
 			}
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();
@@ -100,7 +102,7 @@
 							<input required type="number" id="seatNum" name="seatNum" min="1" max="200" value="1" />
 						</div>
 						<div class="form-group">
-							<label for="flightDate">Seat Number</label>
+							<label for="flightDate">Flight Date</label>
 							<input required type="date" id="flightDate" name="flightDate" min="<%= LocalDate.now().toString() %>" value="<%= LocalDate.now().toString() %>"/>
 						</div>
 						

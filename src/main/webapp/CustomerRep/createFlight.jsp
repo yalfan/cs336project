@@ -17,6 +17,7 @@
 		<% 
 			if (session.getAttribute("user") == null) {
 				response.sendRedirect("../login.jsp");
+				return;
 			}
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();
@@ -133,7 +134,7 @@
 					</div>
 					<input class="btn-success" type="submit" name="create" value="Create"/>
 					<input class="btn-primary" type="submit" name="edit" value="Edit"/>
-					<input class="btn-danger" type="submit" name="cancel" value="Cancel"/>
+					<input class="btn-danger" type="submit" name="cancel" value="Delete"/>
 				</form>
 				
 				<form style="border: 1px solid; padding: 10px;" action="handleCreateAircraft.jsp" class="justify-content-center">
@@ -160,24 +161,24 @@
 					</div>
 					<input class="btn-success" type="submit" name="create" value="Create"/>
 					<input class="btn-primary" type="submit" name="edit" value="Edit"/>
-					<input class="btn-danger" type="submit" name="cancel" value="Cancel"/>
+					<input class="btn-danger" type="submit" name="cancel" value="Delete"/>
 				</form>
 				
 				
 				
 				<form style="border: 1px solid; padding: 10px;" action="handleCreateAirport.jsp" class="justify-content-center">
-					<h2>Airlines</h2>
+					<h2>Airports</h2>
 					<div class="form-group">
-						<label for="airlineID2">Airline ID: </label>
-						<input type="text" required name="airlineID2" id="airlineID2" maxlength="3" minlength="3"/>
+						<label for="airportIDSelect">Airport ID: </label>
+						<input type="text" required name="airportIDSelect" id="airportIDSelect" maxlength="3" minlength="3"/>
 					</div>
 					<div class="form-group">
-						<label for="airlineName">Airline Name: </label>
-						<input type="text" required name="airlineName" id="airlineName" />
+						<label for="airportNameSelect">Airport Name: </label>
+						<input type="text" required name="airportNameSelect" id="airportNameSelect" />
 					</div>
 					<input class="btn-success" type="submit" name="create" value="Create"/>
 					<input class="btn-primary" type="submit" name="edit" value="Edit"/>
-					<input class="btn-danger" type="submit" name="cancel" value="Cancel"/>
+					<input class="btn-danger" type="submit" name="cancel" value="Delete"/>
 				</form>
 				
 				<div class="row justify-content-center">

@@ -24,33 +24,40 @@
 	Connection con = db.getConnection();
 	Statement stmt = con.createStatement();
 	
-	if (request.getParameter("aircraftID") == null) {
-		session.setAttribute("error", "Missing information!");
-    	response.sendRedirect("createFlight.jsp");
-    	return;
-	}
-	
-	String aircraftID = request.getParameter("aircraftID");
-	if (request.getParameter("cancel") != null) {
-		stmt.executeUpdate("DELETE FROM aircraft WHERE Aircraft_ID = '" + aircraftID + "'");
+	try {
+		if (request.getParameter("aircraftID") == null) {
+			session.setAttribute("error", "Missing information!");
+	    	response.sendRedirect("createFlight.jsp");
+	    	return;
+		}
+		
+		String aircraftID = request.getParameter("aircraftID");
+		if (request.getParameter("cancel") != null) {
+			stmt.executeUpdate("DELETE FROM aircraft WHERE Aircraft_ID = '" + aircraftID + "'");
+			response.sendRedirect("createFlight.jsp");
+			return;
+		}
+		String companyID = request.getParameter("airlineSelect2");
+		int numSeats = Integer.parseInt(request.getParameter("numSeats"));
+		
+		if (request.getParameter("edit") != null) {
+			String sqlStatement = String.format("UPDATE aircraft SET Company_ID = '%s', Num_Seats = %d WHERE (Aircraft_ID = '%s');",
+					companyID, numSeats, aircraftID);
+		    stmt.executeUpdate(sqlStatement);
+			response.sendRedirect("createFlight.jsp");
+			return;
+		}
+		
+		String insertStatement = String.format("INSERT INTO aircraft (Aircraft_ID, Company_ID, Num_Seats) VALUES ('%s', '%s', %d);",
+	    		aircraftID, companyID, numSeats);
+	    stmt.executeUpdate(insertStatement);
 		response.sendRedirect("createFlight.jsp");
-		return;
 	}
-	String companyID = request.getParameter("airlineSelect2");
-	int numSeats = Integer.parseInt(request.getParameter("numSeats"));
-	
-	if (request.getParameter("edit") != null) {
-		String sqlStatement = String.format("UPDATE aircraft SET Company_ID = '%s', Num_Seats = %d WHERE (Aircraft_ID = '%s');",
-				companyID, numSeats, aircraftID);
-	    stmt.executeUpdate(sqlStatement);
+	catch (Exception e) {
 		response.sendRedirect("createFlight.jsp");
-		return;
 	}
 	
-	String insertStatement = String.format("INSERT INTO aircraft (Aircraft_ID, Company_ID, Num_Seats) VALUES ('%s', '%s', %d);",
-    		aircraftID, companyID, numSeats);
-    stmt.executeUpdate(insertStatement);
-	response.sendRedirect("createFlight.jsp");
+	
 	%>
 	
 
