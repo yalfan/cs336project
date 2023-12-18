@@ -21,7 +21,7 @@
 	+ "'");
 	if (rs.next()) {
 		session.setAttribute("user", username); // the username will be stored in the session
-		session.setAttribute("user_id", rs.getInt("ID_Number"));
+		session.setAttribute("ID_Number", rs.getInt("ID_Number"));
 		session.setAttribute("account_type", rs.getString("account_type"));
 		con.close();
 		response.sendRedirect("index.jsp");

@@ -208,9 +208,9 @@
 					rs = st.executeQuery(query);
 					while(rs.next()) {
 					%>
-						<tr>
-						<td><%=rs.getString("Company_ID") %></td>
+					<tr>
 						<td><%=rs.getInt("Flight_Number") %></td>
+						<td><%=rs.getString("Company_ID") %></td>
 						<td><%=rs.getString("weekday") %></td>
 						<td><%=rs.getTime("departure_time") %></td>
 						<td><%=rs.getTime("arrival_time") %></td>
@@ -230,8 +230,17 @@
 						} else {%>
 							<td><%=rs.getInt("Price_Economy") %></td>
 						<% } %>
+						<td>
+						<!-- Reservation Button -->
+							<form action="reserve.jsp" >
+								<input type="hidden" name="flightNumber" value="<%= rs.getInt("Flight_Number") %>" />
+								<input type="hidden" name="companyID" value="<%= rs.getString("Company_ID") %>" />
+								<input type="submit" value="Reserve" />
+							</form>
+						</td>
 						</tr> <% 
 					} 
+					st.close();
 					con.close(); %>
 				
 					</table>
@@ -244,6 +253,5 @@
 				</div>
 			</div>
 		</div>
-	
 </body>
 </html>
